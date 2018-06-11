@@ -40,6 +40,7 @@ except:
 
 try:
     import picamera
+    from picamera.array import PiRGBArray
 except:
     print "There are no picamera module or directory."
     sys.exit(0)
@@ -142,6 +143,18 @@ class IVPort():
             self.picam.capture(filename + "_CAM" + str(self.camera) + '.jpg', **options)
         else:
             print "Camera is not opened."
+
+
+    # picamera raw capture                                                                                           
+    def camera_raw_capture(self, format='rgb', **options):
+        if self.is_opened:
+            rawcap=PiRGBArray(self.picam)
+            self.picam.capture(rawcap, format,**options)
+            return rawcap.array
+        else:
+            print "Camera is not opened."
+            return None
+
 
     def camera_sequence(self, **options):
         if self.is_opened:
