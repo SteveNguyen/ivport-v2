@@ -39,7 +39,8 @@ except:
     sys.exit(0)
 
 try:
-    from .picamera import picamera
+    # from .picamera import picamera
+    import picamera
     from picamera.array import PiRGBArray
 except:
     print "There are no picamera module or directory."
