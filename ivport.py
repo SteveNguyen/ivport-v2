@@ -39,7 +39,7 @@ except:
     sys.exit(0)
 
 try:
-    import picamera
+    from .picamera import picamera
     from picamera.array import PiRGBArray
 except:
     print "There are no picamera module or directory."
@@ -88,10 +88,20 @@ class IVPort():
     def camera_change(self, camera=1):
         if self.is_dual:
             if camera == 1:
-                if self.is_camera_v2: self.iviic.write_control_register((0x01))
+                if self.is_camera_v2:
+                    try:
+                        self.iviic.write_control_register((0x01))
+                    except:
+                        print("Error while switching camera (I2C write 0x01)")
                 gp.output(self.fPin, False)
             elif camera == 2:
-                if self.is_camera_v2: self.iviic.write_control_register((0x02))
+                if self.is_camera_v2: 
+
+                    try:
+                        self.iviic.write_control_register((0x02))
+                    except:
+                        print("Error while switching camera (I2C write 0x02)")
+
                 gp.output(self.fPin, True)
             else:
                 print "Ivport type is DUAL."
@@ -100,22 +110,45 @@ class IVPort():
                 sys.exit(0)
         else:
             if camera == 1:
-                if self.is_camera_v2: self.iviic.write_control_register((0x01))
+                if self.is_camera_v2: 
+                    try:
+                        self.iviic.write_control_register((0x01))
+                    except:
+                        print("Error while switching camera (I2C write 0x01)")
+
+
                 gp.output(self.ePin, False)
                 gp.output(self.f1Pin, False)
                 gp.output(self.f2Pin, True)
             elif camera == 2:
-                if self.is_camera_v2: self.iviic.write_control_register((0x02))
+                if self.is_camera_v2: 
+                    try:
+                        self.iviic.write_control_register((0x02))
+                    except:
+                        print("Error while switching camera (I2C write 0x02)")
+
+
                 gp.output(self.ePin, True)
                 gp.output(self.f1Pin, False)
                 gp.output(self.f2Pin, True)
             elif camera == 3:
-                if self.is_camera_v2: self.iviic.write_control_register((0x04))
+                if self.is_camera_v2: 
+                    try:
+                        self.iviic.write_control_register((0x04))
+                    except:
+                        print("Error while switching camera (I2C write 0x04)")
+
                 gp.output(self.ePin, False)
                 gp.output(self.f1Pin, True)
                 gp.output(self.f2Pin, False)
             elif camera == 4:
-                if self.is_camera_v2: self.iviic.write_control_register((0x08))
+                if self.is_camera_v2: 
+
+                    try:
+                        self.iviic.write_control_register((0x08))
+                    except:
+                        print("Error while switching camera (I2C write 0x08)")
+
                 gp.output(self.ePin, True)
                 gp.output(self.f1Pin, True)
                 gp.output(self.f2Pin, False)
