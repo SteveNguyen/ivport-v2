@@ -29,6 +29,7 @@
 from datetime import datetime
 
 import smbus
+import time
 
 iic_address = (0x70)
 iic_register = (0x00)
@@ -55,5 +56,13 @@ class IIC():
         value = self._read()
         return value
 
-    def write_control_register(self, config):
-        self._write(iic_register, config)
+    def write_control_register(self, config, retry=3):
+        success=False
+        for _ in range(retry):
+            try:
+                self._write(iic_register, config)
+                success=True
+                break
+            except IOError as e:
+                print(e)
+                time.sleep(0.05)
