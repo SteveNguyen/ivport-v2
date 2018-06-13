@@ -33,6 +33,10 @@ def picam_capture():
     iv.camera_capture("picam", use_video_port=False)
     iv.camera_change(2)
     iv.camera_capture("picam", use_video_port=False)
+    iv.camera_change(3)
+    iv.camera_capture("picam", use_video_port=False)
+    iv.camera_change(4)
+    iv.camera_capture("picam", use_video_port=False)
     iv.close()
 
 def still_capture():
@@ -47,13 +51,17 @@ def still_capture():
     capture(1)
     iv.camera_change(2)
     capture(2)
+    iv.camera_change(3)
+    capture(3)
+    iv.camera_change(4)
+    capture(4)
     iv.close()
 
 # main capture examples
 # all of them are functional
 def main():
-    still_capture()
-    #picam_capture()
+    # still_capture()
+    picam_capture()
     #picam_sequence()
 
 if __name__ == "__main__":
