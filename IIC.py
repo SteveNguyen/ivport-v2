@@ -66,3 +66,5 @@ class IIC():
             except IOError as e:
                 print(e)
                 time.sleep(0.05)
+        if not success:
+            raise Exception('I2C write failed {} times: register {} on address {}'.format(retry,self._addr,iic_register))
