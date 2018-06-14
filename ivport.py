@@ -74,6 +74,9 @@ class IVPort():
 
         self.link_gpio()
 
+
+
+
     def link_gpio(self):
         if self.is_dual:
             self.fPin = self.DIVJP[self.ivport_jumper]
@@ -169,6 +172,7 @@ class IVPort():
         if self.is_opened: return
         self.picam = picamera.PiCamera(camera_v2=camera_v2, resolution=resolution, framerate=framerate)
         if grayscale: self.picam.color_effects = (128, 128)
+        self.rawcap=PiRGBArray(self.picam)
         self.is_opened = True
 
     # picamera capture
@@ -182,9 +186,9 @@ class IVPort():
     # picamera raw capture                                                                                           
     def camera_raw_capture(self, format='rgb', **options):
         if self.is_opened:
-            rawcap=PiRGBArray(self.picam)
-            self.picam.capture(rawcap, format,**options)
-            return rawcap.array
+
+            self.picam.capture(self.rawcap, format,**options)
+            return self.rawcap.array
         else:
             print "Camera is not opened."
             return None
